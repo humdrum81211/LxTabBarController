@@ -35,27 +35,11 @@ static LxTabBarControllerSwitchType _switchType = LxTabBarControllerSwitchTypeUn
     CGRect fromViewControllerViewFrame = fromViewController.view.frame;
     CGRect toViewControllerViewFrame = toViewController.view.frame;
     
-    switch (_switchType) {
-        case LxTabBarControllerSwitchTypeLast:
-        {
-            toViewControllerViewFrame.origin.x = -toViewControllerViewFrame.size.width;
-            fromViewControllerViewFrame.origin.x = fromViewController.view.frame.size.width;
-        }
-            break;
-        case LxTabBarControllerSwitchTypeNext:
-        {
-            toViewControllerViewFrame.origin.x = toViewControllerViewFrame.size.width;
-            fromViewControllerViewFrame.origin.x = -fromViewController.view.frame.size.width;
-        }
-            break;
-        case LxTabBarControllerSwitchTypeUnknown:
-        {
-            return;
-        }
-            break;
-        default:
-            break;
-    }
+    toViewControllerViewFrame.origin.x = toViewControllerViewFrame.size.width;
+    fromViewControllerViewFrame.origin.x = -fromViewController.view.frame.size.width;
+    
+    
+    toViewControllerViewFrame.origin.x = [[UIScreen mainScreen]bounds].size.width / 15 ;
     
     toViewController.view.frame = toViewControllerViewFrame;
     [UIView animateWithDuration:TRANSITION_DURATION animations:^{
@@ -64,6 +48,7 @@ static LxTabBarControllerSwitchType _switchType = LxTabBarControllerSwitchTypeUn
     } completion:^(BOOL finished) {
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
     }];
+    
 }
 
 @end
